@@ -17,6 +17,7 @@
 		A835C7B01DB823EB0097FDC4 /* CreateMemeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A835C7AF1DB823EB0097FDC4 /* CreateMemeVC.swift */; };
 		A835C7B21DB824E00097FDC4 /* MeMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = A835C7B11DB824E00097FDC4 /* MeMe.swift */; };
 		A835C7B41DB8294C0097FDC4 /* GridViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A835C7B31DB8294C0097FDC4 /* GridViewVC.swift */; };
+		A8CB01A01DBC161E000F5E9E /* DetailedViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CB019F1DBC161E000F5E9E /* DetailedViewVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		A835C7AF1DB823EB0097FDC4 /* CreateMemeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateMemeVC.swift; sourceTree = "<group>"; };
 		A835C7B11DB824E00097FDC4 /* MeMe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeMe.swift; sourceTree = "<group>"; };
 		A835C7B31DB8294C0097FDC4 /* GridViewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridViewVC.swift; sourceTree = "<group>"; };
+		A8CB019F1DBC161E000F5E9E /* DetailedViewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailedViewVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 				A835C7AF1DB823EB0097FDC4 /* CreateMemeVC.swift */,
 				A835C7B31DB8294C0097FDC4 /* GridViewVC.swift */,
 				A835C7851DB7E8BF0097FDC4 /* Main.storyboard */,
+				A8CB019F1DBC161E000F5E9E /* DetailedViewVC.swift */,
 				A835C7B11DB824E00097FDC4 /* MeMe.swift */,
 				A835C7881DB7E8BF0097FDC4 /* Assets.xcassets */,
 				A835C78A1DB7E8BF0097FDC4 /* LaunchScreen.storyboard */,
@@ -272,6 +275,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A835C7841DB7E8BF0097FDC4 /* TableViewVC.swift in Sources */,
+				A8CB01A01DBC161E000F5E9E /* DetailedViewVC.swift in Sources */,
 				A835C7B41DB8294C0097FDC4 /* GridViewVC.swift in Sources */,
 				A835C7B21DB824E00097FDC4 /* MeMe.swift in Sources */,
 				A835C7821DB7E8BF0097FDC4 /* AppDelegate.swift in Sources */,
@@ -526,6 +530,7 @@
 				A835C7A81DB7E8BF0097FDC4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A835C7A91DB7E8BF0097FDC4 /* Build configuration list for PBXNativeTarget "MemeMeTests" */ = {
 			isa = XCConfigurationList;
@@ -534,6 +539,7 @@
 				A835C7AB1DB7E8BF0097FDC4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A835C7AC1DB7E8BF0097FDC4 /* Build configuration list for PBXNativeTarget "MemeMeUITests" */ = {
 			isa = XCConfigurationList;
@@ -542,6 +548,7 @@
 				A835C7AE1DB7E8BF0097FDC4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

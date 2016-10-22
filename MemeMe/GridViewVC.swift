@@ -28,10 +28,17 @@ class GridViewVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MemeCell", for: indexPath)
         let meme = appDelegate.memes[indexPath.row]
-//        cell.setText(meme.topText, bottomString: meme.bottomText)
-        let imageView = UIImageView(image: meme.image)
+        let imageView = UIImageView(image: meme.memedImage)
         cell.backgroundView = imageView
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailView = self.storyboard!.instantiateViewController(withIdentifier: "DetailVC") as! DetailedViewVC
+        let meme = appDelegate.memes[indexPath.row]
+        detailView.finalImage = meme.memedImage
+        detailView.labelText = meme.topText + meme.bottomText
+        self.present(detailView, animated: true, completion: nil)
     }
     
     
