@@ -16,10 +16,14 @@ class CreateMemeVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     @IBOutlet weak var actionButton:UIBarButtonItem!
     @IBOutlet weak var topToolBar: UIToolbar!
     @IBOutlet weak var bottomToolBar: UIToolbar!
-    @IBOutlet weak var topTextField: UITextField!
-    @IBOutlet weak var bottomTextField: UITextField!
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var topTextField: UITextField?
+    @IBOutlet weak var bottomTextField: UITextField?
+    @IBOutlet weak var imageView: UIImageView?
     @IBOutlet weak var bottomContraintUiView: NSLayoutConstraint!
+    var edit: Bool = false
+    var origImage: UIImage?
+    var origTopText :String?
+    var origBottomText :String?
     
     let memeTextAttributes = [
         NSStrokeColorAttributeName : UIColor.black,
@@ -38,9 +42,9 @@ class CreateMemeVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     
     
     @IBAction func cancelButtonClicked(_ sender: AnyObject) {
-        topTextField.isHidden = true
-        bottomTextField.isHidden = true
-        imageView.image = nil
+        topTextField!.isHidden = true
+        bottomTextField!.isHidden = true
+        imageView!.image = nil
         actionButton.isEnabled = false
         self.dismiss(animated: true, completion: nil)
     }
@@ -84,7 +88,7 @@ class CreateMemeVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     func getKeyboardHeight(notification: NSNotification) -> CGFloat {
         let userInfo = notification.userInfo!
         let keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
-        if bottomTextField.isFirstResponder {
+        if bottomTextField!.isFirstResponder {
             return keyboardSize.cgRectValue.height
         } else {
             return 0
@@ -110,7 +114,7 @@ class CreateMemeVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            imageView.image = image
+            imageView!.image = image
             actionButton.isEnabled = true
         }
         
@@ -164,15 +168,15 @@ class CreateMemeVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     }
     
     func setLayoutBasedOnOrientation(){
-        let imagePosition = calculateRectOfImageInImageView(imageView: imageView)
+        let imagePosition = calculateRectOfImageInImageView(imageView: imageView!)
         if imagePosition == CGRect.zero {
-            topTextField.isHidden = true
-            bottomTextField.isHidden = true
+            topTextField!.isHidden = true
+            bottomTextField!.isHidden = true
         }else{
-            topTextField.isHidden = false
-            bottomTextField.isHidden = false
-            topTextField.frame = CGRect(x: imagePosition.origin.x + 5, y: imagePosition.origin.y + 15, width: imagePosition.width - 10, height: 30)
-            bottomTextField.frame = CGRect(x: imagePosition.origin.x + 5, y: imagePosition.origin.y + imagePosition.height - 45, width: imagePosition.width - 10, height: 30)
+            topTextField!.isHidden = false
+            bottomTextField!.isHidden = false
+            topTextField!.frame = CGRect(x: imagePosition.origin.x + 5, y: imagePosition.origin.y + 15, width: imagePosition.width - 10, height: 30)
+            bottomTextField!.frame = CGRect(x: imagePosition.origin.x + 5, y: imagePosition.origin.y + imagePosition.height - 45, width: imagePosition.width - 10, height: 30)
         }
     }
     
@@ -180,7 +184,7 @@ class CreateMemeVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         //Create the meme
         let memedImage = generateMemedImage()
         
-        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, image: imageView.image!, memedImage: memedImage)
+        let meme = Meme(topText: topTextField!.text!, bottomText: bottomTextField!.text!, image: imageView!.image!, memedImage: memedImage)
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.memes.append(meme)
         print("saved")
@@ -195,15 +199,24 @@ class CreateMemeVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        setupInitialLayoutForTextFields(textField: topTextField, defaultText: "TOP")
-        setupInitialLayoutForTextFields(textField: bottomTextField, defaultText: "BOTTOM")
+        if edit {
+            imageView?.image = origImage!
+            setLayoutBasedOnOrientation()
+            setupInitialLayoutForTextFields(textField: topTextField!, defaultText: origTopText!)
+            setupInitialLayoutForTextFields(textField: bottomTextField!, defaultText: origBottomText!)
+            edit = false
+            
+        }else{
+            setupInitialLayoutForTextFields(textField: topTextField!, defaultText: "TOP")
+            setupInitialLayoutForTextFields(textField: bottomTextField!, defaultText: "BOTTOM")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         setLayoutBasedOnOrientation()
         camButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
         subscribeToKeyboardNotifications()
-        if imageView.image == nil {
+        if imageView!.image == nil && edit != true {
             actionButton.isEnabled = false
         }
     }
@@ -211,10 +224,6 @@ class CreateMemeVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     override func viewWillDisappear(_ animated: Bool) {
         unsubscribeFromKeyboardNotifications()
     }
-    
-    //    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-    //        setLayoutBasedOnOrientation()
-    //    }
     
     override func willAnimateRotation(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
         setLayoutBasedOnOrientation()

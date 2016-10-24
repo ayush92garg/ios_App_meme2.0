@@ -16,6 +16,9 @@ class GridViewVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
     @IBOutlet weak var gridView: UICollectionView!
     
     override func viewDidAppear(_ animated: Bool) {
+        if (self.tabBarController?.tabBar.isHidden)! {
+            self.tabBarController?.tabBar.isHidden  = false
+        }
         gridView.delegate = self
         gridView.dataSource = self
         gridView.reloadData()
@@ -37,8 +40,9 @@ class GridViewVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
         let detailView = self.storyboard!.instantiateViewController(withIdentifier: "DetailVC") as! DetailedViewVC
         let meme = appDelegate.memes[indexPath.row]
         detailView.finalImage = meme.memedImage
-        detailView.labelText = meme.topText + meme.bottomText
-        self.present(detailView, animated: true, completion: nil)
+        detailView.topText = meme.topText
+        detailView.bottomText = meme.bottomText
+        self.navigationController?.pushViewController(detailView, animated: true)
     }
     
     
