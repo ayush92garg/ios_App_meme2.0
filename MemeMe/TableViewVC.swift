@@ -60,7 +60,7 @@ class TableViewVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
     }
     
     func confirmDelete(meme: Meme) {
-        let alert = UIAlertController(title: "Delete Planet", message: "Are you sure you want to permanently delete this Meme?", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Delete Meme", message: "Are you sure you want to permanently delete this Meme?", preferredStyle: .actionSheet)
         
         let DeleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: handleDeleteMeme)
         let CancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: cancelDeleteMeme)
